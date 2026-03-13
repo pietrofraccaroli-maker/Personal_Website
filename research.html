@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pietro Fraccaroli | Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f2eb;
+      --ink: #2a1d14;
+      --muted: #6f5241;
+      --accent: #8b5e3c;
+      --accent-light: #a87852;
+      --rule: #c8c0b0;
+      --card-bg: #fefcf8;
+      --serif: 'Playfair Display', Georgia, serif;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'IBM Plex Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    .site-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    .site-header.scrolled {
+      background: rgba(245,242,235,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--rule);
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.4s;
+    }
+    .site-header.scrolled .brand { color: var(--ink); }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      font-family: var(--mono);
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .site-header.scrolled nav a { color: var(--muted); }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0; right: 0;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    nav a:hover, nav a.active { color: #fff; }
+    .site-header.scrolled nav a:hover,
+    .site-header.scrolled nav a.active { color: var(--ink); }
+    nav a:hover::after, nav a.active::after { transform: scaleX(1); }
+
+    .hero-wrap {
+      position: relative;
+      height: 62vh;
+      min-height: 420px;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: -20%;
+      background: url('othman-alghanmi-stkEKK4ypYo-unsplash.jpg') center center / cover no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(15,13,10,0.30) 0%,
+        rgba(15,13,10,0.10) 45%,
+        rgba(245,242,235,0.0) 82%,
+        rgba(245,242,235,1) 100%
+      );
+    }
+    .hero-content {
+      position: absolute;
+      bottom: 24%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(920px, 90vw);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #6d492f;
+      background: rgba(245,242,235,0.72);
+      display: inline-block;
+      padding: 0.28rem 0.55rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.15s forwards;
+    }
+    h1, h2, h3 { font-family: var(--serif); }
+    .hero-content h1 {
+      font-size: clamp(2.4rem, 5.2vw, 4.8rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.35s forwards;
+    }
+
+    .main-content { background: var(--bg); }
+    .container {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .content {
+      padding: 5rem 0;
+    }
+    .lead {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: #654735;
+      margin-bottom: 1.2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      padding: 1.4rem 1.3rem 1.5rem;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+      height: 100%;
+    }
+    .card h2, .card h3 { margin-bottom: 0.45rem; }
+    .card p { color: #6b4d3a; }
+    .paper-meta {
+      margin-top: 0.8rem;
+      color: #7a5234;
+      font-family: var(--mono);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-size: 0.72rem;
+    }
+
+    .research-block {
+      margin-top: 1.4rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--rule);
+    }
+    .research-block h2 {
+      color: #7a5234;
+      margin-bottom: 0.6rem;
+    }
+
+    .interests-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      padding: 1.4rem 1.3rem 1.5rem;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+    .interest-list {
+      list-style: disc;
+      margin: 0;
+      padding-left: 1.2rem;
+      display: grid;
+      gap: 0.55rem;
+    }
+    .interest-list li {
+      font-family: var(--serif);
+      font-size: 1.12rem;
+      font-weight: 700;
+      color: #2a1d14;
+      line-height: 1.35;
+    }
+    .interest-list li::marker { color: #8b5e3c; }
+    .timeline {
+      margin-top: 1rem;
+      border-left: 1px solid var(--rule);
+      padding-left: 1.2rem;
+      display: grid;
+      gap: 0.9rem;
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 1rem;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      position: absolute;
+      left: -1.53rem;
+      top: 0.55rem;
+    }
+    .timeline-year {
+      font-family: var(--mono);
+      color: #7a5234;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-size: 0.74rem;
+      margin-top: 0.1rem;
+    }
+    .status-badge {
+      display: inline-block;
+      margin-top: 0.45rem;
+      padding: 0.2rem 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border: 1px solid #c8aa90;
+      background: #f3e5d9;
+      color: #6a452d;
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem;
+      text-align: center;
+    }
+    .site-footer small {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .cards { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-item::before { display: none; }
+      .timeline { border-left: 0; padding-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <a href="index.html" class="brand">PF</a>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="research.html" class="active">Research</a>
+    </nav>
+  </header>
+
+  <div class="hero-wrap">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Projects & Papers</p>
+      <h1>Research</h1>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <div class="container content">
+      <p class="lead">Core themes, selected projects, and current working papers.</p>
+
+      <section class="research-block" aria-labelledby="interests-title">
+        <h2 id="interests-title">Research Interests</h2>
+        <div class="interests-panel">
+          <ul class="interest-list">
+            <li>Land Economics</li>
+            <li>Machine Learning</li>
+            <li>Policy Evaluation and Applied Econometrics</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="research-block" aria-labelledby="highlights-title">
+        <h2 id="highlights-title">Research Highlights</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>When Innovation Misses the Field.</h3>
+            <p>
+              Measures how climatic and geographic mismatch from technology leaders constrains agricultural mechanization across regions worldwide.
+            </p>
+            <p class="paper-meta">Status: Working Paper</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="research-block" aria-labelledby="working-papers-title">
+        <h2 id="working-papers-title">Working Papers Timeline</h2>
+        <div class="timeline">
+          <article class="timeline-item">
+            <div class="timeline-year">2026</div>
+            <div class="timeline-content">
+              <h3>When Innovation Misses the Field: Technological Mismatch in Agricultural Production.</h3>
+              <p>How does climatic and geograpgical mismatch affect agricultural mechanization?</p>
+              <span class="status-badge">In Progress</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <small>Views are personal and do not necessarily reflect those of my institutions.</small>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+  </script>
+</body>
+</html>
