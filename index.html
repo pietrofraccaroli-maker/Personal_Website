@@ -117,6 +117,32 @@
       left: 50%;
       transform: translateX(-50%);
       width: min(920px, 90vw);
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .hero-photo {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.85);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+      background: rgba(245,242,235,0.85);
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    @media (max-width: 680px) {
+      .hero-content { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      .hero-photo { width: 160px; height: 160px; order: -1; }
     }
     .hero-eyebrow {
       font-family: var(--mono);
@@ -423,8 +449,13 @@
     <div class="hero-bg" id="hero-bg"></div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">University of Bonn &middot; Land Economics Group</p>
-      <h1>Pietro<br><strong>Fraccaroli</strong></h1>
+      <div class="hero-text">
+        <p class="hero-eyebrow">University of Bonn &middot; Land Economics Group</p>
+        <h1>Pietro<br><strong>Fraccaroli</strong></h1>
+      </div>
+      <div class="hero-photo" id="hero-photo">
+        <img src="photo.jpg" alt="Portrait of Pietro Fraccaroli" onerror="this.remove();">
+      </div>
     </div>
     <div class="scroll-hint">
       <span>Scroll</span>
@@ -439,7 +470,7 @@
         <div class="intro-grid">
           <div>
             <p class="intro-label">In brief</p>
-            <p class="intro-text">PhD Student working at the intersection of land economics, development economics, and technological innovation. I study how <em>agricultural technologies shape economies</em>.</p>
+            <p class="intro-text">PhD Student working at the intersection of agricultural economics, development economics, and technological innovation. I study how <em>agricultural technologies shape economies</em>.</p>
           </div>
           <div>
             <div class="meta-line">
@@ -448,15 +479,19 @@
             </div>
             <div class="meta-line">
               <span class="meta-key">Institution</span>
-              <span class="meta-val">University of Bonn, Germany</span>
+              <span class="meta-val">University of Bonn</span>
+            </div>
+            <div class="meta-line">
+              <span class="meta-key">Funded by</span>
+              <span class="meta-val">PhenoRob · Cluster of Excellence</span>
             </div>
             <div class="meta-line">
               <span class="meta-key">Fields</span>
-              <span class="meta-val">Land Economics · Smart Farming</span>
+              <span class="meta-val">Agricultural Economics · Smart Farming</span>
             </div>
             <div class="meta-line">
               <span class="meta-key">Methods</span>
-              <span class="meta-val">Applied Econometrics · Machine Learning</span>
+              <span class="meta-val">Applied Econometrics</span>
             </div>
           </div>
         </div>
@@ -480,7 +515,7 @@
             <article class="card">
               <p class="card-num">02</p>
               <h3>Research</h3>
-              <p>Current projects and themes in economics and policy analysis.</p>
+              <p>Working papers.</p>
               <span class="card-arrow">→</span>
             </article>
           </a>
