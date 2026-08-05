@@ -382,6 +382,54 @@
       letter-spacing: 0.05em;
       min-height: 1rem;
     }
+    .social-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0.9rem 0;
+    }
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 106px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-light);
+      background: rgba(45, 90, 39, 0.08);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: transform 0.22s ease, background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+    }
+    .social-link:hover, .social-link:focus-visible {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(45, 90, 39, 0.24);
+    }
+    button.social-link {
+      font-weight: inherit;
+      cursor: pointer;
+      appearance: none;
+    }
+    .contact-question {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--muted);
+      margin-top: 1.4rem;
+      margin-bottom: 0.3rem;
+    }
+    .contact-address {
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
     .btn {
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -526,8 +574,18 @@
         <div class="contact-left">
           <p>Want to get in touch?</p>
           <p id="contact-msg" aria-live="polite"></p>
+          <div class="social-strip" aria-label="Contact links">
+            <button id="contact-btn" type="button" class="social-link">Email</button>
+            <a class="social-link" href="https://www.linkedin.com/in/pietro-fraccaroli-560105260/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="social-link" href="https://github.com/pietrofraccaroli-maker" target="_blank" rel="noopener">GitHub</a>
+          </div>
+          <p class="contact-question">Where can you find me?</p>
+          <address class="contact-address">
+            Room 2.003<br>
+            Meckenheimer Allee 174<br>
+            53115 Bonn
+          </address>
         </div>
-        <button id="contact-btn" type="button" class="btn btn-accent">Contact me</button>
       </div>
 
     </div>
@@ -553,7 +611,7 @@
     // Contact button — copies email to clipboard
     document.getElementById('contact-btn').addEventListener('click', () => {
       const msg = document.getElementById('contact-msg');
-      const email = 'pietro.fraccaroli00@gmail.com';
+      const email = 'pfraccar@uni-bonn.de';
       navigator.clipboard.writeText(email).then(() => {
         msg.textContent = '✓ Email copied to clipboard';
         setTimeout(() => msg.textContent = '', 3000);
