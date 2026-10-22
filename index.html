@@ -597,16 +597,19 @@
   </footer>
 
   <script>
-    // Parallax scroll
+    // Parallax scroll + sticky nav, batched into one animation frame
     const heroBg = document.getElementById('hero-bg');
-    window.addEventListener('scroll', () => {
-      heroBg.style.transform = `translateY(${window.scrollY * 0.4}px)`;
-    }, { passive: true });
-
-    // Sticky nav style
     const header = document.getElementById('site-header');
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 60);
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        heroBg.style.transform = `translate3d(0, ${y * 0.4}px, 0)`;
+        header.classList.toggle('scrolled', y > 60);
+        scrollTicking = false;
+      });
     }, { passive: true });
 
     // Contact button — copies email to clipboard
